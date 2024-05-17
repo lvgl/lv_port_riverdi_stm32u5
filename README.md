@@ -1,9 +1,3 @@
----
-layout: post
-title: Riverdi 5-inch STM32 Embedded Display - board certification review
-author: "kisvegabor"
-cover: /assets/cover_cert_gold.webp
----
 # LVGL port for the 5-inch Riverdi STM32 Embedded Displays (STM32U599NJH6Q or STM32U5A9NJH6Q)
 This repository contains the __Light and Versatile Graphics Library (LVGL)__ port for the __5-inch Riverdi STM32 Embedded Displays__ with *STM32U599NJH6Q or STM32U5A9NJH6Q* MCUs. It's ready-to-use project template which you can easily import into *STM32CubeIDE* and *STM32CubeMX* (to reconfigure selected peripherals). This project uses the master LVGL release (at the time or writing v9.1.1). It is based on the [LVGL example](https://github.com/riverdi/riverdi-50-stm32u5-lvgl) provided by Riverdi, but this repository is maintained by LVGL.
 
