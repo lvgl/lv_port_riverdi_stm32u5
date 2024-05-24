@@ -16,9 +16,13 @@ You can purchase the 5-inch Riverdi STM32 Embedded Displays from several sources
 ## Benchmark
 
 ### Buffer configuration
-The example is configured for 32-bit ARGB8888 color format. The project uses LVGL's `LV_DISPLAY_RENDER_MODE_DIRECT` mode with two full screen sized framebuffers in external SDRAM memory. In this mode LVGL renders directly into the framebuffer, and synchronizes the framebuffers (copies the updated areas into the back buffer). Framebuffers are switched in the flush callback. Direct mode is an efficient method if there is enough memory (SRAM or SDRAM) available for two full screen sized buffers.
+The example is configured for 16-bit RGB565 color format, which is the native color format of the panel. The project uses LVGL's `LV_DISPLAY_RENDER_MODE_PARTIAL` mode with two 60 line (1/10th of the height of the screen) buffers. A single buffer requires 120kB memory.
 
-The buffer configuration can be found in the file [lv_port_riverdi_101-stm32h7/CM7/Core/Src/lvgl_port_display.c](https://github.com/lvgl/lv_port_riverdi_101-stm32h7/CM7/Core/Src/lvgl_port_display.c).
+If more memory is needed for the application, a single buffer may be used, or the size of the buffer can be reduced. There is no strict rule for the optimum buffer size, as it depends on many factors (screen size, screen content, processor speed, RAM speed, type of the LCD interface). In practice a 1/10th screen size buffer is a good compromise between performance and memory use, but this is an area for potential optimization, depending on the application.
+
+Direct mode rendering seems to be not feasible on this board, because in direct mode the color format must be the native format -- i.e., ARGB8888 --, and apparently the SDRAM memory is not fast enough for two full sized 32-bit buffers.
+
+The buffer configuration can be found in the file [lv_port_riverdi_stm32u5/Core/Src/lvgl_port_display.c](https://github.com/lvgl/lv_port_riverdi_stm32u5/Core/Src/lvgl_port_display.c).
 
 TODO: update benchmark video and certificate links
 [![image](https://github.com/lvgl/lv_port_riverdi_101-stm32h7/assets/7599318/88fd9a26-ec84-4f7b-98e8-313cf6a2568f)](![image](https://github.com/lvgl/lv_port_riverdi_101-stm32h7/assets/7599318/cad4801b-928b-4b11-bb2a-8f987625acc9))
