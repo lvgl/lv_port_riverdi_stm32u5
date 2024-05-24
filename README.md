@@ -11,7 +11,7 @@ You can purchase the 5-inch Riverdi STM32 Embedded Displays from several sources
 - [Riverdi's website](https://riverdi.com/product/5-inch-lcd-display-capacitive-touch-panel-optical-bonding-uxtouch-stm32u5-rvt50hqsnwc00-b)
 - [Mouser](https://www2.mouser.com/ProductDetail/Riverdi/RVT50HQSNWC00-B?qs=17ckDYBRdekaIIA5WqJAmw%3D%3D)
 - [TME](https://www.tme.com/us/en-us/details/sm-rvt50hqsnwc00-b/intelligent-displays-modules/riverdi/) 
-- [DigiKey](https://www.digikey.pl/pl/products/detail/riverdi/SM-RVT50HQSNWC00-B/22077604?s=N4IgTCBcDaIEoDUAqBWADACQIoGUByA6gMJpoC0AQiALoC%2BQA)
+- [DigiKey](https://www.digikey.com/en/products/detail/riverdi/SM-RVT50HQSNWC00-B/22077604?s=N4IgTCBcDaIEoDUAqBWADACQIoGUByA6gMJpoC0AQiALoC%2BQA)
 
 ## Benchmark
 
@@ -22,7 +22,7 @@ If more memory is needed for the application, a single buffer may be used, or th
 
 Direct mode rendering seems to be not feasible on this board, because in direct mode the color format must be the native format -- i.e., ARGB8888 --, and apparently the SDRAM memory is not fast enough for two full sized 32-bit buffers.
 
-The buffer configuration can be found in the file [lv_port_riverdi_stm32u5/Core/Src/lvgl_port_display.c](https://github.com/lvgl/lv_port_riverdi_stm32u5/Core/Src/lvgl_port_display.c).
+The buffer configuration can be found in the file [lv_port_riverdi_stm32u5/Core/Src/lvgl_port_display.c](https://github.com/lvgl/lv_port_riverdi_stm32u5/blob/master/Core/Src/lvgl_port_display.c).
 
 TODO: update benchmark video and certificate links
 [![image](https://github.com/lvgl/lv_port_riverdi_101-stm32h7/assets/7599318/88fd9a26-ec84-4f7b-98e8-313cf6a2568f)](![image](https://github.com/lvgl/lv_port_riverdi_101-stm32h7/assets/7599318/cad4801b-928b-4b11-bb2a-8f987625acc9))
