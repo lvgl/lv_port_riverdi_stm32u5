@@ -4,6 +4,13 @@
 
 STM32 Embedded 5” display is all-in-one complete and open-platform solution being able to independently handle the visual layer of devices with the need for high computing performance. The 5-inch STM32 Embedded Displays series are industrial-quality LCD-TFT solutions based on the STM32U599NJH6Q or STM32U5A9NJH6Q microcontroller. It has been designed in a way that allows to meet most of the hardware and programming challenges faced by engineers, including access to all interfaces.
 
+## Benchmark
+
+The benchmark uses a screen-sized partial buffer and copies a rendered area to a frame buffer with DMA2D. No VSYNC is used, therfore some tearing is visible in some test cases. 
+
+[![Riverdi STMU5-cover](https://github.com/lvgl/lv_port_riverdi_stm32u5/assets/7599318/589b9270-430e-426a-a2a8-185d9463e849)
+](https://www.youtube.com/watch?v=aeDuthE5aA4)
+
 ## Buy
 
 You can purchase the 5-inch Riverdi STM32 Embedded Displays from several sources:
