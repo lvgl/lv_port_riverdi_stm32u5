@@ -24,7 +24,7 @@
 
 /* USER CODE END 0 */
 
-GPU2D_HandleTypeDef hgpu2d;
+extern GPU2D_HandleTypeDef hgpu2d;
 
 /* GPU2D init function */
 void MX_GPU2D_Init(void)
@@ -37,11 +37,11 @@ void MX_GPU2D_Init(void)
   /* USER CODE BEGIN GPU2D_Init 1 */
 
   /* USER CODE END GPU2D_Init 1 */
-  hgpu2d.Instance = GPU2D;
-  if (HAL_GPU2D_Init(&hgpu2d) != HAL_OK)
-  {
-    Error_Handler();
-  }
+//  hgpu2d.Instance = GPU2D;
+//  if (HAL_GPU2D_Init(&hgpu2d) != HAL_OK)
+//  {
+//    Error_Handler();
+//  }
   /* USER CODE BEGIN GPU2D_Init 2 */
 
   /* USER CODE END GPU2D_Init 2 */

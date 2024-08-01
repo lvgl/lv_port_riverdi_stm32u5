@@ -29,7 +29,7 @@ void lvgl_display_init (void)
 	/* display initialization */
 
 	disp = lv_display_create(MY_DISP_HOR_RES, MY_DISP_VER_RES);
-	lv_display_set_buffers(disp, buf_1, NULL, sizeof(buf_1), LV_DISPLAY_RENDER_MODE_PARTIAL);
+	lv_display_set_buffers(disp, buf_1, NULL, sizeof(buf_1), LV_DISPLAY_RENDER_MODE_FULL);
 	lv_display_set_flush_cb(disp, disp_flush);
 
 	/* interrupt callback for DMA2D transfer */

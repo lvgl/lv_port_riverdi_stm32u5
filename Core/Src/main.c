@@ -127,15 +127,15 @@ int main(void)
   MX_ADC1_Init();
   MX_ADF1_Init();
   MX_CRC_Init();
-  MX_DCACHE1_Init();
-  MX_DCACHE2_Init();
+//  MX_DCACHE1_Init();
+//  MX_DCACHE2_Init();
   MX_DMA2D_Init();
   MX_FDCAN1_Init();
   MX_GPU2D_Init();
   MX_HASH_Init();
   MX_I2C1_Init();
   MX_I2C2_Init();
-  MX_ICACHE_Init();
+//  MX_ICACHE_Init();
   MX_LTDC_Init();
   MX_OCTOSPI1_Init();
   MX_RNG_Init();
@@ -174,9 +174,9 @@ int main(void)
   lvgl_touchscreen_init();
 
   /* lvgl demo */
-  lv_demo_widgets();
+//  lv_demo_widgets();
   //lv_demo_music();
-  //lv_demo_benchmark();
+  lv_demo_benchmark();
 
   /* USER CODE END 2 */
 

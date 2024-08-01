@@ -181,6 +181,19 @@
 
 #endif
 
+#define LV_USE_NEMA_GFX 1
+
+#if LV_USE_NEMA_GFX
+    /*Enable Vector Graphics Operations. Available only if NemaVG library is present*/
+    #define LV_USE_NEMA_VG 1
+
+    #if LV_USE_NEMA_VG
+        /*Define application's resolution used for VG related buffer allocation */
+        #define LV_NEMA_GFX_RESX 800
+        #define LV_NEMA_GFX_RESY 600
+    #endif
+#endif
+
 /*=======================
  * FEATURE CONFIGURATION
  *=======================*/
