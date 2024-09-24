@@ -82,9 +82,35 @@ void MX_FREERTOS_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
-
+#include "lvgl/src/draw/nema_gfx/lv_draw_nema_gfx.h"
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+extern lv_draw_nema_gfx_unit_t * draw_nema_gfx_unit;
+LV_IMAGE_DECLARE(img_benchmark_cogwheel_rgb);
+static uint8_t img_data[100*100*4];
+
+void blend_image(void)
+{
+	uint32_t fb = 0x20000000;
+
+    nema_set_clip(0, 0, 800, 480);
+    nema_bind_dst_tex((uintptr_t)NEMA_VIRT2PHYS(fb), 800, 480, NEMA_RGB565, 800 * 2);
+
+    //Fill
+    uint32_t blending_mode = NEMA_BL_SRC_OVER;
+    nema_set_blend_fill(NEMA_BL_SRC);
+    uint32_t bg_color = nema_rgba(0xff, 0x00, 0x00, 0xff);
+    nema_fill_rect(0, 0, 800, 480, bg_color);
+
+    //Image
+    memcpy(img_data, img_benchmark_cogwheel_rgb.data, 100 * 100* 4);
+    void * data = img_benchmark_cogwheel_rgb.data;
+    nema_bind_src_tex((uintptr_t)(data), 100, 100, NEMA_BGRX8888, 100 * 4, NEMA_FILTER_PS);
+    nema_set_blend_blit(blending_mode);
+	nema_blit_rect(0, 0, 100, 100);
+    nema_cl_submit(&(draw_nema_gfx_unit->cl));
+}
+
 
 /* USER CODE END 0 */
 
@@ -127,7 +153,7 @@ int main(void)
   MX_ADC1_Init();
   MX_ADF1_Init();
   MX_CRC_Init();
-//  MX_DCACHE1_Init();
+  MX_DCACHE1_Init();
 //  MX_DCACHE2_Init();
   MX_DMA2D_Init();
   MX_FDCAN1_Init();
@@ -135,7 +161,7 @@ int main(void)
   MX_HASH_Init();
   MX_I2C1_Init();
   MX_I2C2_Init();
-//  MX_ICACHE_Init();
+  MX_ICACHE_Init();
   MX_LTDC_Init();
   MX_OCTOSPI1_Init();
   MX_RNG_Init();
@@ -167,6 +193,10 @@ int main(void)
 
   /* initialize LVGL framework */
   lv_init();
+  blend_image();
+  while(1);
+
+
   lv_tick_set_cb(HAL_GetTick);
 
   /* initialize display and touchscreen */

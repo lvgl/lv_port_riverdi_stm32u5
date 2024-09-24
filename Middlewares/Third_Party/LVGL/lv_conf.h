@@ -22,7 +22,7 @@
  *====================*/
 
 /*Color depth: 8 (A8), 16 (RGB565), 24 (RGB888), 32 (XRGB8888)*/
-#define LV_COLOR_DEPTH 16
+#define LV_COLOR_DEPTH 32
 
 /*=========================
    STDLIB WRAPPER SETTINGS
@@ -190,7 +190,7 @@
     #if LV_USE_NEMA_VG
         /*Define application's resolution used for VG related buffer allocation */
         #define LV_NEMA_GFX_RESX 800
-        #define LV_NEMA_GFX_RESY 600
+        #define LV_NEMA_GFX_RESY 480
     #endif
 #endif
 
