@@ -22,7 +22,7 @@
  *====================*/
 
 /*Color depth: 8 (A8), 16 (RGB565), 24 (RGB888), 32 (XRGB8888)*/
-#define LV_COLOR_DEPTH 32
+#define LV_COLOR_DEPTH 16
 
 /*=========================
    STDLIB WRAPPER SETTINGS
@@ -184,13 +184,15 @@
 #define LV_USE_NEMA_GFX 1
 
 #if LV_USE_NEMA_GFX
+    #define LV_NEMA_GFX_HAL_INCLUDE <stm32u5xx_hal.h>
+
     /*Enable Vector Graphics Operations. Available only if NemaVG library is present*/
     #define LV_USE_NEMA_VG 1
 
     #if LV_USE_NEMA_VG
         /*Define application's resolution used for VG related buffer allocation */
-        #define LV_NEMA_GFX_RESX 800
-        #define LV_NEMA_GFX_RESY 480
+        #define LV_NEMA_GFX_MAX_RESX 800
+        #define LV_NEMA_GFX_MAX_RESY 480
     #endif
 #endif
 

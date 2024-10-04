@@ -624,8 +624,6 @@ void HAL_GPU2D_IRQHandler(GPU2D_HandleTypeDef *hgpu2d)
 
     last_cl_id = GPU2D_ReadReg(hgpu2d->Instance, GPU2D_CLID);
 
-
-
     /* Command List Complete Callback */
 #if (USE_HAL_GPU2D_REGISTER_CALLBACKS == 1)
     if (hgpu2d->CommandListCpltCallback != NULL)
