@@ -19,7 +19,11 @@ static void disp_flush_error (DMA2D_HandleTypeDef *hdma2d);
  *  STATIC VARIABLES
  **********************/
 static lv_display_t * disp;
+#if LV_COLOR_DEPTH == 8
+static __attribute__((aligned(32))) uint8_t buf_1[MY_DISP_HOR_RES * MY_DISP_VER_RES];
+#else
 static __attribute__((aligned(32))) uint8_t buf_1[MY_DISP_HOR_RES * MY_DISP_VER_RES * 2];
+#endif
 
 /**********************
  *   GLOBAL FUNCTIONS
