@@ -54,10 +54,12 @@ disp_flush (lv_display_t * display,
   DMA2D->CR = 0x1U << DMA2D_CR_MODE_Pos; /* memory-to-memory with PFC */
 #if LV_COLOR_DEPTH == 16
   DMA2D->FGPFCCR = DMA2D_INPUT_RGB565;
+#elif LV_COLOR_DEPTH == 24
+  DMA2D->FGPFCCR = DMA2D_INPUT_RGB888;
 #elif LV_COLOR_DEPTH == 32
   DMA2D->FGPFCCR = DMA2D_INPUT_ARGB8888;
 #else
-#warning dma2d flushing with LV_COLOR_DEPTH other than 16 or 32 is not supported
+#warning dma2d flushing with LV_COLOR_DEPTH other than 16, 24, or 32 is not supported
 #endif
   DMA2D->FGMAR = (uint32_t)px_map;
   DMA2D->FGOR = 0;

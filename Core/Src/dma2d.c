@@ -41,6 +41,8 @@ void MX_DMA2D_Init(void)
   hdma2d.Init.Mode = DMA2D_M2M;
 #if LV_COLOR_DEPTH == 32
   hdma2d.Init.ColorMode = DMA2D_OUTPUT_ARGB8888;
+#elif LV_COLOR_DEPTH == 24
+  hdma2d.Init.ColorMode = DMA2D_OUTPUT_RGB888;
 #elif LV_COLOR_DEPTH == 16
   hdma2d.Init.ColorMode = DMA2D_OUTPUT_RGB565;
 #endif
@@ -50,6 +52,8 @@ void MX_DMA2D_Init(void)
   hdma2d.LayerCfg[1].InputOffset = 0;
 #if LV_COLOR_DEPTH == 32
   hdma2d.LayerCfg[1].InputColorMode = DMA2D_INPUT_ARGB8888;
+#elif LV_COLOR_DEPTH == 24
+  hdma2d.LayerCfg[1].InputColorMode = DMA2D_INPUT_RGB888;
 #elif LV_COLOR_DEPTH == 16
   hdma2d.LayerCfg[1].InputColorMode = DMA2D_INPUT_RGB565;
 #endif

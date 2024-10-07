@@ -69,6 +69,8 @@ void MX_LTDC_Init(void)
 #elif LV_COLOR_DEPTH == 32
   pLayerCfg.PixelFormat = LTDC_PIXEL_FORMAT_RGB565;
 //  pLayerCfg.PixelFormat = LTDC_PIXEL_FORMAT_ARGB8888;
+#else
+  pLayerCfg.PixelFormat = LTDC_PIXEL_FORMAT_RGB565;
 #endif
   pLayerCfg.Alpha = 255;
   pLayerCfg.Alpha0 = 0;
