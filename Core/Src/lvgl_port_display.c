@@ -52,7 +52,11 @@ disp_flush (lv_display_t * display,
   lv_coord_t height = lv_area_get_height(area);
 
   DMA2D->CR = 0x1U << DMA2D_CR_MODE_Pos; /* memory-to-memory with PFC */
-#if LV_COLOR_DEPTH == 16
+#if LV_COLOR_DEPTH == 8
+  DMA2D->FGPFCCR = DMA2D_INPUT_L8
+                   | (0xff << DMA2D_FGPFCCR_CS_Pos) /* CLUT size 256 (0xff + 1) */
+                   | (1 << DMA2D_FGPFCCR_CCM_Pos); /* CLUT color mode RGB (not ARGB) */
+#elif LV_COLOR_DEPTH == 16
   DMA2D->FGPFCCR = DMA2D_INPUT_RGB565;
 #elif LV_COLOR_DEPTH == 24
   DMA2D->FGPFCCR = DMA2D_INPUT_RGB888;

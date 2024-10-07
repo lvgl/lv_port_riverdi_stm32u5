@@ -19,6 +19,7 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "dma2d.h"
+#include "lvgl/lvgl.h"
 
 /* USER CODE BEGIN 0 */
 
@@ -39,13 +40,7 @@ void MX_DMA2D_Init(void)
   /* USER CODE END DMA2D_Init 1 */
   hdma2d.Instance = DMA2D;
   hdma2d.Init.Mode = DMA2D_M2M;
-#if LV_COLOR_DEPTH == 32
-  hdma2d.Init.ColorMode = DMA2D_OUTPUT_ARGB8888;
-#elif LV_COLOR_DEPTH == 24
-  hdma2d.Init.ColorMode = DMA2D_OUTPUT_RGB888;
-#elif LV_COLOR_DEPTH == 16
-  hdma2d.Init.ColorMode = DMA2D_OUTPUT_RGB565;
-#endif
+  hdma2d.Init.ColorMode = DMA2D_OUTPUT_RGB565; /* LCD is RGB565 */
   hdma2d.Init.OutputOffset = 0;
   hdma2d.Init.BytesSwap = DMA2D_BYTES_REGULAR;
   hdma2d.Init.LineOffsetMode = DMA2D_LOM_PIXELS;
@@ -56,6 +51,8 @@ void MX_DMA2D_Init(void)
   hdma2d.LayerCfg[1].InputColorMode = DMA2D_INPUT_RGB888;
 #elif LV_COLOR_DEPTH == 16
   hdma2d.LayerCfg[1].InputColorMode = DMA2D_INPUT_RGB565;
+#elif LV_COLOR_DEPTH == 8
+  hdma2d.LayerCfg[1].InputColorMode = DMA2D_INPUT_L8;
 #endif
   hdma2d.LayerCfg[1].AlphaMode = DMA2D_NO_MODIF_ALPHA;
   hdma2d.LayerCfg[1].InputAlpha = 0;
@@ -69,6 +66,26 @@ void MX_DMA2D_Init(void)
   {
     Error_Handler();
   }
+
+#if LV_COLOR_DEPTH == 8
+  uint8_t clut[256 * 3]; /* assuming the stack is large enough */
+  for(uint32_t i = 0; i < 256; i++) {
+    clut[i * 3] = i;
+    clut[i * 3 + 1] = i;
+    clut[i * 3 + 2] = i;
+  }
+  DMA2D_CLUTCfgTypeDef clut_cfg = {.pCLUT=(uint32_t *)clut,
+                                   .CLUTColorMode=DMA2D_CCM_RGB888,
+                                   .Size=0xff};
+  if (HAL_DMA2D_CLUTStartLoad(&hdma2d, &clut_cfg, 1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_DMA2D_PollForTransfer(&hdma2d, HAL_MAX_DELAY) != HAL_OK)
+  {
+    Error_Handler();
+  }
+#endif
   /* USER CODE BEGIN DMA2D_Init 2 */
 
   /* USER CODE END DMA2D_Init 2 */
