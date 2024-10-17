@@ -154,7 +154,7 @@ int main(void)
 	MX_USART3_UART_Init();
 	MX_USART6_UART_Init();
 	MX_USB_OTG_HS_USB_Init();
-//	MX_FLASH_Init();
+//	MX_FLASH_Init();    /*If enabled Nema (NeoChrome) can't read the images and fonts from flash*/
 
 	/* Initialize interrupts */
 	MX_NVIC_Init();

@@ -60,25 +60,18 @@ void MX_LTDC_Init(void)
   {
     Error_Handler();
   }
-  pLayerCfg.WindowX0 = (int)((800-MY_DISP_HOR_RES) / 2);
-  pLayerCfg.WindowX1 = pLayerCfg.WindowX0 + MY_DISP_HOR_RES;
-  pLayerCfg.WindowY0 = (int)((480-MY_DISP_VER_RES) / 2);
-  pLayerCfg.WindowY1 = pLayerCfg.WindowY0 + MY_DISP_VER_RES;
-#if LV_COLOR_DEPTH == 16
+  pLayerCfg.WindowX0 = 0;
+  pLayerCfg.WindowX1 = 800;
+  pLayerCfg.WindowY0 = 0;
+  pLayerCfg.WindowY1 = 480;
   pLayerCfg.PixelFormat = LTDC_PIXEL_FORMAT_RGB565;
-#elif LV_COLOR_DEPTH == 32
-  pLayerCfg.PixelFormat = LTDC_PIXEL_FORMAT_RGB565;
-//  pLayerCfg.PixelFormat = LTDC_PIXEL_FORMAT_ARGB8888;
-#else
-  pLayerCfg.PixelFormat = LTDC_PIXEL_FORMAT_RGB565;
-#endif
   pLayerCfg.Alpha = 255;
   pLayerCfg.Alpha0 = 0;
   pLayerCfg.BlendingFactor1 = LTDC_BLENDING_FACTOR1_CA;
   pLayerCfg.BlendingFactor2 = LTDC_BLENDING_FACTOR2_CA;
   pLayerCfg.FBStartAdress = 0x20000000;
-  pLayerCfg.ImageWidth = MY_DISP_HOR_RES;
-  pLayerCfg.ImageHeight = MY_DISP_VER_RES;
+  pLayerCfg.ImageWidth = 800;
+  pLayerCfg.ImageHeight = 480;
   pLayerCfg.Backcolor.Blue = 0;
   pLayerCfg.Backcolor.Green = 0;
   pLayerCfg.Backcolor.Red = 0;
