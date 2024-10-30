@@ -36,7 +36,7 @@ TODO: update benchmark video and certificate links
 
 ### CPU and memory
 
-- **MCU** STM32U599NJH6Q/STM32U5A9NJH6Q
+- **MCU** STM32U599NJH6Q/STM32U5A9NJH6Q (Cotex-M33, 160MHz)
 - **RAM** 2.5MB
 - **Flash** 4MB
 - **GPU** Neo-Chrom (GPU2D), Chrom-Art (DMA2D), Chrom-GRC (GFXMMU)
