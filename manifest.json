@@ -13,7 +13,7 @@
         "chipVendor": "STM32",
         "manufacturer": "Riverdi",
         "specs": {
-            "MCU": "STM32U599NJH6Q/STM32U5A9NJH6Q",
+            "MCU": "STM32U599NJH6Q/STM32U5A9NJH6Q  (Cotex-M33, 160MHz)",
             "RAM": "2.5MB (internal only)",
             "Flash": "4MB (internal only)",
             "GPU": "Neo-Chrom (GPU2D), Chrom-Art (DMA2D), Chrom-GRC (GFXMMU)",
