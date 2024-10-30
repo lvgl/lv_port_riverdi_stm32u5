@@ -13,12 +13,17 @@
 
 static void disp_flush (lv_display_t *, const lv_area_t *, uint8_t *);
 static void disp_flush_complete (DMA2D_HandleTypeDef*);
+static void disp_flush_error (DMA2D_HandleTypeDef *hdma2d);
 
 /**********************
  *  STATIC VARIABLES
  **********************/
 static lv_display_t * disp;
+#if LV_COLOR_DEPTH == 8
+static __attribute__((aligned(32))) uint8_t buf_1[MY_DISP_HOR_RES * MY_DISP_VER_RES];
+#else
 static __attribute__((aligned(32))) uint8_t buf_1[MY_DISP_HOR_RES * MY_DISP_VER_RES * 2];
+#endif
 
 /**********************
  *   GLOBAL FUNCTIONS
@@ -34,7 +39,7 @@ void lvgl_display_init (void)
 
 	/* interrupt callback for DMA2D transfer */
 	hdma2d.XferCpltCallback = disp_flush_complete;
-
+	hdma2d.XferErrorCallback = disp_flush_error;
 }
 
 /**********************
@@ -46,11 +51,24 @@ disp_flush (lv_display_t * display,
             const lv_area_t * area,
             uint8_t * px_map)
 {
+
   lv_coord_t width = lv_area_get_width(area);
   lv_coord_t height = lv_area_get_height(area);
 
-  DMA2D->CR = 0x0U << DMA2D_CR_MODE_Pos;
+  DMA2D->CR = 0x1U << DMA2D_CR_MODE_Pos; /* memory-to-memory with PFC */
+#if LV_COLOR_DEPTH == 8
+  DMA2D->FGPFCCR = DMA2D_INPUT_L8
+                   | (0xff << DMA2D_FGPFCCR_CS_Pos) /* CLUT size 256 (0xff + 1) */
+                   | (1 << DMA2D_FGPFCCR_CCM_Pos); /* CLUT color mode RGB (not ARGB) */
+#elif LV_COLOR_DEPTH == 16
   DMA2D->FGPFCCR = DMA2D_INPUT_RGB565;
+#elif LV_COLOR_DEPTH == 24
+  DMA2D->FGPFCCR = DMA2D_INPUT_RGB888;
+#elif LV_COLOR_DEPTH == 32
+  DMA2D->FGPFCCR = DMA2D_INPUT_ARGB8888;
+#else
+#warning dma2d flushing with LV_COLOR_DEPTH other than 16, 24, or 32 is not supported
+#endif
   DMA2D->FGMAR = (uint32_t)px_map;
   DMA2D->FGOR = 0;
   DMA2D->OPFCCR = DMA2D_OUTPUT_RGB565;
@@ -68,3 +86,11 @@ disp_flush_complete (DMA2D_HandleTypeDef *hdma2d)
 {
   lv_display_flush_ready(disp);
 }
+
+
+static void
+disp_flush_error (DMA2D_HandleTypeDef *hdma2d)
+{
+  while(1);
+}
+

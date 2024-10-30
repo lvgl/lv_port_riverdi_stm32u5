@@ -48,7 +48,7 @@ osThreadId_t lvglTimerHandle;
 const osThreadAttr_t lvglTimer_attributes = {
   .name = "lvglTimer",
   .priority = (osPriority_t) osPriorityNormal,
-  .stack_size = 4* 1024
+  .stack_size = 16* 1024
 };
 /* USER CODE END Variables */
 /* Definitions for defaultTask */
@@ -56,7 +56,7 @@ osThreadId_t defaultTaskHandle;
 const osThreadAttr_t defaultTask_attributes = {
   .name = "defaultTask",
   .priority = (osPriority_t) osPriorityNormal,
-  .stack_size = 128 * 4
+  .stack_size = 128 * 4 * 32
 };
 
 /* Private function prototypes -----------------------------------------------*/
