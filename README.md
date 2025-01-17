@@ -36,7 +36,7 @@ TODO: update benchmark video and certificate links
 
 ### CPU and memory
 
-- **MCU** STM32U599NJH6Q/STM32U5A9NJH6Q
+- **MCU** STM32U599NJH6Q/STM32U5A9NJH6Q (Cotex-M33, 160MHz)
 - **RAM** 2.5MB
 - **Flash** 4MB
 - **GPU** Neo-Chrom (GPU2D), Chrom-Art (DMA2D), Chrom-GRC (GFXMMU)
@@ -68,7 +68,7 @@ To be able to flash and debug your program you will need to purchase an SWD debu
 - Connect a debug probe to the SWD header using the supplied cable.
   
 ### Software setup
-- Install [STM32 CubeIDE](https://www.st.com/en/development-tools/stm32cubeide.html) with processor support for the STM32H757XIH6.
+- Install [STM32 CubeIDE](https://www.st.com/en/development-tools/stm32cubeide.html).
 
 ### Run the project
 - Clone the project: `git clone --recursive https://github.com/lvgl/lv_port_riverdi_stm32u5`
