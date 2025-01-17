@@ -40,6 +40,26 @@ void lvgl_display_init (void)
 	/* interrupt callback for DMA2D transfer */
 	hdma2d.XferCpltCallback = disp_flush_complete;
 	hdma2d.XferErrorCallback = disp_flush_error;
+
+#if LV_COLOR_DEPTH == 8
+  uint8_t clut[256 * 3]; /* assuming the stack is large enough */
+  for(uint32_t i = 0; i < 256; i++) {
+    clut[i * 3] = i;
+    clut[i * 3 + 1] = i;
+    clut[i * 3 + 2] = i;
+  }
+  DMA2D_CLUTCfgTypeDef clut_cfg = {.pCLUT=(uint32_t *)clut,
+                                   .CLUTColorMode=DMA2D_CCM_RGB888,
+                                   .Size=0xff};
+  if (HAL_DMA2D_CLUTStartLoad(&hdma2d, &clut_cfg, 1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_DMA2D_PollForTransfer(&hdma2d, HAL_MAX_DELAY) != HAL_OK)
+  {
+    Error_Handler();
+  }
+#endif
 }
 
 /**********************
