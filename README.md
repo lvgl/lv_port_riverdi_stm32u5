@@ -23,7 +23,7 @@ You can purchase the 5-inch Riverdi STM32 Embedded Displays from several sources
 ## Benchmark
 
 ### Buffer configuration
-The example is configured for 16-bit RGB565 color format, which is the native color format of the panel. The project uses LVGL's `LV_DISPLAY_RENDER_MODE_PARTIAL` mode with two 60 line (1/10th of the height of the screen) buffers. A single buffer requires 120kB memory.
+The example is configured for 16-bit RGB565 color format, which is the native color format of the panel. The project uses LVGL's `LV_DISPLAY_RENDER_MODE_PARTIAL` mode with two 240 line (half of the height of the screen) buffers. A single buffer requires 384kB memory.
 
 If more memory is needed for the application, a single buffer may be used, or the size of the buffer can be reduced. There is no strict rule for the optimum buffer size, as it depends on many factors (screen size, screen content, processor speed, RAM speed, type of the LCD interface). In practice a 1/10th screen size buffer is a good compromise between performance and memory use, but this is an area for potential optimization, depending on the application.
 
