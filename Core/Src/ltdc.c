@@ -19,7 +19,6 @@
 /* USER CODE END Header */
 /* Includes ------------------------------------------------------------------*/
 #include "ltdc.h"
-#include "lvgl_port_display.h"
 
 /* USER CODE BEGIN 0 */
 
