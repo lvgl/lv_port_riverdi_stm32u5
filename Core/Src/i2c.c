@@ -7,7 +7,7 @@
   ******************************************************************************
   * @attention
   *
-  * Copyright (c) 2024 STMicroelectronics.
+  * Copyright (c) 2023 STMicroelectronics.
   * All rights reserved.
   *
   * This software is licensed under terms that can be found in the LICENSE file
@@ -246,14 +246,21 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* i2cHandle)
 
     __HAL_RCC_GPIOB_CLK_ENABLE();
     /**I2C4 GPIO Configuration
-    PB7     ------> I2C4_SDA
     PB6     ------> I2C4_SCL
+    PB11     ------> I2C4_SDA
     */
-    GPIO_InitStruct.Pin = GPIO_PIN_7|GPIO_PIN_6;
+    GPIO_InitStruct.Pin = GPIO_PIN_6;
     GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
     GPIO_InitStruct.Pull = GPIO_NOPULL;
     GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
     GPIO_InitStruct.Alternate = GPIO_AF5_I2C4;
+    HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin = GPIO_PIN_11;
+    GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
+    GPIO_InitStruct.Pull = GPIO_NOPULL;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_VERY_HIGH;
+    GPIO_InitStruct.Alternate = GPIO_AF3_I2C4;
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
     /* I2C4 clock enable */
@@ -316,12 +323,12 @@ void HAL_I2C_MspDeInit(I2C_HandleTypeDef* i2cHandle)
     __HAL_RCC_I2C4_CLK_DISABLE();
 
     /**I2C4 GPIO Configuration
-    PB7     ------> I2C4_SDA
     PB6     ------> I2C4_SCL
+    PB11     ------> I2C4_SDA
     */
-    HAL_GPIO_DeInit(GPIOB, GPIO_PIN_7);
-
     HAL_GPIO_DeInit(GPIOB, GPIO_PIN_6);
+
+    HAL_GPIO_DeInit(GPIOB, GPIO_PIN_11);
 
   /* USER CODE BEGIN I2C4_MspDeInit 1 */
 
