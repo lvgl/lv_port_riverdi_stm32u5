@@ -5,6 +5,17 @@
 #include "lvgl_port_touch.h"
 #include "main.h"
 #include "i2c.h"
+#include "cmsis_os2.h"
+
+/*********************
+ *      DEFINES
+ *********************/
+
+#if LV_USE_OS == LV_OS_NONE
+  #define DELAY_API(ms) HAL_Delay(ms)
+#else
+  #define DELAY_API(ms) osDelay(ms)
+#endif
 
 /**********************
  *  STATIC VARIABLES
@@ -32,11 +43,11 @@ lvgl_touchscreen_init (void)
   /* 'i2c1' bus and touchscreen reset pin are already configure by CubeMX,
    *  here we just need to reset touchscreen controller */
   HAL_GPIO_WritePin(CTP_RST_GPIO_Port, CTP_RST_Pin, GPIO_PIN_SET);
-  HAL_Delay(10);
+  DELAY_API(10);
   HAL_GPIO_WritePin(CTP_RST_GPIO_Port, CTP_RST_Pin, GPIO_PIN_RESET);
-  HAL_Delay(10);
+  DELAY_API(10);
   HAL_GPIO_WritePin(CTP_RST_GPIO_Port, CTP_RST_Pin, GPIO_PIN_SET);
-  HAL_Delay(10);
+  DELAY_API(10);
 
   /* basic LVGL driver initialization */
   lv_indev_t * indev = lv_indev_create();
