@@ -112,12 +112,12 @@
     #define LV_OS_CUSTOM_INCLUDE <stdint.h>
 #endif
 #if LV_USE_OS == LV_OS_FREERTOS
-	/*
-	 * Unblocking an RTOS task with a direct notification is 45% faster and uses less RAM
-	 * than unblocking a task using an intermediary object such as a binary semaphore.
-	 * RTOS task notifications can only be used when there is only one task that can be the recipient of the event.
-	 */
-	#define LV_USE_FREERTOS_TASK_NOTIFY 1
+    /*
+     * Unblocking an RTOS task with a direct notification is 45% faster and uses less RAM
+     * than unblocking a task using an intermediary object such as a binary semaphore.
+     * RTOS task notifications can only be used when there is only one task that can be the recipient of the event.
+     */
+    #define LV_USE_FREERTOS_TASK_NOTIFY 1
 #endif
 
 /*========================
@@ -173,6 +173,10 @@
     #define LV_DRAW_SW_SUPPORT_A8           1
     #define LV_DRAW_SW_SUPPORT_I1           1
 
+    /* The threshold of the luminance to consider a pixel as
+     * active in indexed color format */
+    #define LV_DRAW_SW_I1_LUM_THRESHOLD 127
+
     /** Set number of draw units.
      *  - > 1 requires operating system to be enabled in `LV_USE_OS`.
      *  - > 1 means multiple threads will render the screen in parallel. */
@@ -210,6 +214,7 @@
 
     /** Enable drawing complex gradients in software: linear at an angle, radial or conical */
     #define LV_USE_DRAW_SW_COMPLEX_GRADIENTS    0
+
 #endif
 
 /*Use TSi's aka (Think Silicon) NemaGFX */
@@ -271,6 +276,23 @@
 
     /** Enable PXP asserts. */
     #define LV_USE_PXP_ASSERT 0
+#endif
+
+/** Use NXP's G2D on MPU platforms. */
+#define LV_USE_DRAW_G2D 0
+
+#if LV_USE_DRAW_G2D
+    /** Maximum number of buffers that can be stored for G2D draw unit.
+     *  Includes the frame buffers and assets. */
+    #define LV_G2D_HASH_TABLE_SIZE 50
+
+    #if LV_USE_OS
+        /** Use additional draw thread for G2D processing.*/
+        #define LV_USE_G2D_DRAW_THREAD 1
+    #endif
+
+    /** Enable G2D asserts. */
+    #define LV_USE_G2D_ASSERT 0
 #endif
 
 /** Use Renesas Dave2D on RA  platforms. */
@@ -440,6 +462,9 @@
 /** Add `id` field to `lv_obj_t` */
 #define LV_USE_OBJ_ID           0
 
+/**  Enable support widget names*/
+#define LV_USE_OBJ_NAME         0
+
 /** Automatically assign an ID when obj is created */
 #define LV_OBJ_ID_AUTO_ASSIGN   LV_USE_OBJ_ID
 
@@ -533,7 +558,7 @@
 #define LV_USE_MATRIX           0
 
 /** Include `lvgl_private.h` in `lvgl.h` to access internal data and functions by default */
-#define LV_USE_PRIVATE_API		0
+#define LV_USE_PRIVATE_API      0
 
 /*==================
  *   FONT USAGE
@@ -789,13 +814,15 @@
 
 /* File system interfaces for common APIs */
 
-/** Setting a default driver letter allows skipping the driver prefix in filepaths. */
+/** Setting a default driver letter allows skipping the driver prefix in filepaths.
+ *  Documentation about how to use the below driver-identifier letters can be found at
+ *  https://docs.lvgl.io/master/details/main-components/fs.html#lv-fs-identifier-letters . */
 #define LV_FS_DEFAULT_DRIVER_LETTER '\0'
 
 /** API for fopen, fread, etc. */
 #define LV_USE_FS_STDIO 0
 #if LV_USE_FS_STDIO
-    #define LV_FS_STDIO_LETTER '\0'     /**< Set an upper cased letter on which the drive will accessible (e.g. 'A') */
+    #define LV_FS_STDIO_LETTER '\0'     /**< Set an upper-case driver-identifier letter for this driver (e.g. 'A'). */
     #define LV_FS_STDIO_PATH ""         /**< Set the working directory. File/directory paths will be appended to it. */
     #define LV_FS_STDIO_CACHE_SIZE 0    /**< >0 to cache this number of bytes in lv_fs_read() */
 #endif
@@ -803,7 +830,7 @@
 /** API for open, read, etc. */
 #define LV_USE_FS_POSIX 0
 #if LV_USE_FS_POSIX
-    #define LV_FS_POSIX_LETTER '\0'     /**< Set an upper cased letter on which the drive will accessible (e.g. 'A') */
+    #define LV_FS_POSIX_LETTER '\0'     /**< Set an upper-case driver-identifier letter for this driver (e.g. 'A'). */
     #define LV_FS_POSIX_PATH ""         /**< Set the working directory. File/directory paths will be appended to it. */
     #define LV_FS_POSIX_CACHE_SIZE 0    /**< >0 to cache this number of bytes in lv_fs_read() */
 #endif
@@ -811,7 +838,7 @@
 /** API for CreateFile, ReadFile, etc. */
 #define LV_USE_FS_WIN32 0
 #if LV_USE_FS_WIN32
-    #define LV_FS_WIN32_LETTER '\0'     /**< Set an upper cased letter on which the drive will accessible (e.g. 'A') */
+    #define LV_FS_WIN32_LETTER '\0'     /**< Set an upper-case driver-identifier letter for this driver (e.g. 'A'). */
     #define LV_FS_WIN32_PATH ""         /**< Set the working directory. File/directory paths will be appended to it. */
     #define LV_FS_WIN32_CACHE_SIZE 0    /**< >0 to cache this number of bytes in lv_fs_read() */
 #endif
@@ -819,7 +846,7 @@
 /** API for FATFS (needs to be added separately). Uses f_open, f_read, etc. */
 #define LV_USE_FS_FATFS 0
 #if LV_USE_FS_FATFS
-    #define LV_FS_FATFS_LETTER '\0'     /**< Set an upper cased letter on which the drive will accessible (e.g. 'A') */
+    #define LV_FS_FATFS_LETTER '\0'     /**< Set an upper-case driver-identifier letter for this driver (e.g. 'A'). */
     #define LV_FS_FATFS_PATH ""         /**< Set the working directory. File/directory paths will be appended to it. */
     #define LV_FS_FATFS_CACHE_SIZE 0    /**< >0 to cache this number of bytes in lv_fs_read() */
 #endif
@@ -827,34 +854,34 @@
 /** API for memory-mapped file access. */
 #define LV_USE_FS_MEMFS 0
 #if LV_USE_FS_MEMFS
-    #define LV_FS_MEMFS_LETTER '\0'     /**< Set an upper cased letter on which the drive will accessible (e.g. 'A') */
+    #define LV_FS_MEMFS_LETTER '\0'     /**< Set an upper-case driver-identifier letter for this driver (e.g. 'A'). */
 #endif
 
 /** API for LittleFs. */
 #define LV_USE_FS_LITTLEFS 0
 #if LV_USE_FS_LITTLEFS
-    #define LV_FS_LITTLEFS_LETTER '\0'  /**< Set an upper cased letter on which the drive will accessible (e.g. 'A') */
-    #define LV_FS_LITTLEFS_PATH ""         /**< Set the working directory. File/directory paths will be appended to it. */
+    #define LV_FS_LITTLEFS_LETTER '\0'  /**< Set an upper-case driver-identifier letter for this driver (e.g. 'A'). */
+    #define LV_FS_LITTLEFS_PATH ""      /**< Set the working directory. File/directory paths will be appended to it. */
 #endif
 
 /** API for Arduino LittleFs. */
 #define LV_USE_FS_ARDUINO_ESP_LITTLEFS 0
 #if LV_USE_FS_ARDUINO_ESP_LITTLEFS
-    #define LV_FS_ARDUINO_ESP_LITTLEFS_LETTER '\0'     /**< Set an upper cased letter on which the drive will accessible (e.g. 'A') */
-    #define LV_FS_ARDUINO_ESP_LITTLEFS_PATH ""         /**< Set the working directory. File/directory paths will be appended to it. */
+    #define LV_FS_ARDUINO_ESP_LITTLEFS_LETTER '\0'  /**< Set an upper-case driver-identifier letter for this driver (e.g. 'A'). */
+    #define LV_FS_ARDUINO_ESP_LITTLEFS_PATH ""      /**< Set the working directory. File/directory paths will be appended to it. */
 #endif
 
 /** API for Arduino Sd. */
 #define LV_USE_FS_ARDUINO_SD 0
 #if LV_USE_FS_ARDUINO_SD
-    #define LV_FS_ARDUINO_SD_LETTER '\0'          /**< Set an upper cased letter on which the drive will accessible (e.g. 'A') */
-    #define LV_FS_ARDUINO_SD_PATH ""         /**< Set the working directory. File/directory paths will be appended to it. */
+    #define LV_FS_ARDUINO_SD_LETTER '\0'  /**< Set an upper-case driver-identifier letter for this driver (e.g. 'A'). */
+    #define LV_FS_ARDUINO_SD_PATH ""      /**< Set the working directory. File/directory paths will be appended to it. */
 #endif
 
 /** API for UEFI */
 #define LV_USE_FS_UEFI 0
 #if LV_USE_FS_UEFI
-    #define LV_FS_UEFI_LETTER '\0'          /**< Set an upper cased letter on which the drive will accessible (e.g. 'A') */
+    #define LV_FS_UEFI_LETTER '\0'      /**< Set an upper-case driver-identifier letter for this driver (e.g. 'A'). */
 #endif
 
 /** LODEPNG decoder library */
@@ -962,7 +989,7 @@
 #define LV_USE_SYSMON   1
 #if LV_USE_SYSMON
     /** Get the idle percentage. E.g. uint32_t my_get_idle(void); */
-    #define LV_SYSMON_GET_IDLE lv_timer_get_idle
+    #define LV_SYSMON_GET_IDLE lv_os_get_idle_percent
 
     /** 1: Show CPU usage and FPS count.
      *  - Requires `LV_USE_SYSMON = 1` */
@@ -1096,8 +1123,17 @@
 
 #endif
 
+/** Enable emulated input devices, time emulation, and screenshot compares. */
+#define LV_USE_TEST 0
+#if LV_USE_TEST
+
+/** Enable `lv_test_screenshot_compare`.
+ * Requires libpng and a few MB of extra RAM. */
+#define LV_USE_TEST_SCREENSHOT_COMPARE 0
+#endif /*LV_USE_TEST*/
+
 /** Enable loading XML UIs runtime */
-#define LV_USE_XML	0
+#define LV_USE_XML    0
 
 /*==================
  * DEVICES
@@ -1148,6 +1184,9 @@
 #if LV_USE_NUTTX
     #define LV_USE_NUTTX_INDEPENDENT_IMAGE_HEAP 0
 
+    /** Use independent image heap for default draw buffer */
+    #define LV_NUTTX_DEFAULT_DRAW_BUF_USE_INDEPENDENT_IMAGE_HEAP    0
+
     #define LV_USE_NUTTX_LIBUV    0
 
     /** Use Nuttx custom init API to open window and handle touchscreen */
@@ -1169,6 +1208,15 @@
 
 /** Driver for /dev/dri/card */
 #define LV_USE_LINUX_DRM        0
+
+#if LV_USE_LINUX_DRM
+
+    /* Use the MESA GBM library to allocate DMA buffers that can be
+     * shared across sub-systems and libraries using the Linux DMA-BUF API.
+     * The GBM library aims to provide a platform independent memory management system
+     * it supports the major GPU vendors - This option requires linking with libgbm */
+    #define LV_LINUX_DRM_GBM_BUFFERS 0
+#endif
 
 /** Interface for TFT_eSPI */
 #define LV_USE_TFT_ESPI         0
@@ -1283,13 +1331,16 @@
 #define LV_USE_DEMO_VECTOR_GRAPHIC  0
 
 /*E-bike demo with Lottie animations (if LV_USE_LOTTIE is enabled)*/
-#define LV_USE_DEMO_EBIKE			0
+#define LV_USE_DEMO_EBIKE           0
 #if LV_USE_DEMO_EBIKE
-	#define LV_DEMO_EBIKE_PORTRAIT  0    /*0: for 480x270..480x320, 1: for 480x800..720x1280*/
+    #define LV_DEMO_EBIKE_PORTRAIT  0    /*0: for 480x270..480x320, 1: for 480x800..720x1280*/
 #endif
 
 /** High-resolution demo */
 #define LV_USE_DEMO_HIGH_RES        0
+
+/* Smart watch demo */
+#define LV_USE_DEMO_SMARTWATCH      0
 
 /*--END OF LV_CONF_H--*/
 
