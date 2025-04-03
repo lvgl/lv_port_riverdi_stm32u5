@@ -34,12 +34,7 @@
         "https://raw.githubusercontent.com/lvgl/project-creator/master/meta/images/riverdi/logo.svg"
     ],
     "image": "https://raw.githubusercontent.com/lvgl/lv_port_riverdi_stm32u5/master/board_images/riverdi-stmu5.webp",
-    "buy_now_links": [
-        "https://riverdi.com/product/5-inch-lcd-display-capacitive-touch-panel-optical-bonding-uxtouch-stm32u5-rvt50hqsnwc00-b",
-        "https://www2.mouser.com/ProductDetail/Riverdi/RVT50HQSNWC00-B?qs=17ckDYBRdekaIIA5WqJAmw%3D%3D",
-        "https://www.tme.com/us/en-us/details/sm-rvt50hqsnwc00-b/intelligent-displays-modules/riverdi/",
-        "https://www.digikey.com/en/products/detail/riverdi/SM-RVT50HQSNWC00-B/22077604?s=N4IgTCBcDaIEoDUAqBWADACQIoGUByA6gMJpoC0AQiALoC%2BQA"
-    ],
+    "buy_now_links": ["https://riverdi.com/product/5-inch-lcd-display-capacitive-touch-panel-optical-bonding-uxtouch-stm32u5-rvt50hqsnwc00-b"],
     "branches": [
         "release/v9.2"
     ],
