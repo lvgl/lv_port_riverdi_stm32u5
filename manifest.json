@@ -10,7 +10,7 @@
         "CubeIDE"
     ],
     "hardware": {
-        "chipVendor": "STM32",
+        "chipVendor": "ST",
         "manufacturer": "Riverdi",
         "specs": {
             "MCU": "STM32U599NJH6Q/STM32U5A9NJH6Q  (Cotex-M33, 160MHz)",
