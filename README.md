@@ -4,13 +4,6 @@
 
 STM32 Embedded 5” display is all-in-one complete and open-platform solution being able to independently handle the visual layer of devices with the need for high computing performance. The 5-inch STM32 Embedded Displays series are industrial-quality LCD-TFT solutions based on the STM32U599NJH6Q or STM32U5A9NJH6Q microcontroller. It has been designed in a way that allows to meet most of the hardware and programming challenges faced by engineers, including access to all interfaces.
 
-## Benchmark
-
-The benchmark uses a screen-sized partial buffer and copies a rendered area to a frame buffer with DMA2D. No VSYNC is used, therfore some tearing is visible in some test cases. 
-
-[![Riverdi STMU5-cover](https://github.com/lvgl/lv_port_riverdi_stm32u5/assets/7599318/589b9270-430e-426a-a2a8-185d9463e849)
-](https://www.youtube.com/watch?v=aeDuthE5aA4)
-
 ## Buy
 
 You can purchase the 5-inch Riverdi STM32 Embedded Displays from several sources:
@@ -22,15 +15,10 @@ You can purchase the 5-inch Riverdi STM32 Embedded Displays from several sources
 
 ## Benchmark
 
-### Buffer configuration
-The example is configured for 16-bit RGB565 color format, which is the native color format of the panel. The project uses [LVGL's LTDC driver](https://docs.lvgl.io/master/details/integration/driver/display/st_ltdc.html) in double-buffered direct mode. A single buffer requires 768kB memory. 
+The benchmark uses a screen-sized partial buffer and copies a rendered area to a frame buffer with DMA2D. No VSYNC is used, therfore some tearing is visible in some test cases. 
 
-If more memory is needed for the application, a single buffer may be used, or partial buffering can be used. There is no strict rule for the optimum partial buffer size, as it depends on many factors (screen size, screen content, processor speed, RAM speed, type of the LCD interface). In practice a 1/10th screen size buffer is a good compromise between performance and memory use, but this is an area for potential optimization, depending on the application.
-
-The buffer configuration can be found in the file [lv_port_riverdi_stm32u5/Core/Src/lvgl_port_display.c](https://github.com/lvgl/lv_port_riverdi_stm32u5/blob/master/Core/Src/lvgl_port_display.c).
-
-TODO: update benchmark video and certificate links
-[![image](https://github.com/lvgl/lv_port_riverdi_101-stm32h7/assets/7599318/88fd9a26-ec84-4f7b-98e8-313cf6a2568f)](![image](https://github.com/lvgl/lv_port_riverdi_101-stm32h7/assets/7599318/cad4801b-928b-4b11-bb2a-8f987625acc9))
+[![Riverdi STMU5-cover](https://github.com/lvgl/lv_port_riverdi_stm32u5/assets/7599318/589b9270-430e-426a-a2a8-185d9463e849)
+](https://www.youtube.com/watch?v=aeDuthE5aA4)
 
 ## Specification
 
