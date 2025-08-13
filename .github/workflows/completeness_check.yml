@@ -1,0 +1,94 @@
+name: Validate README and Links
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Validate README sections
+        run: |
+          if ! grep -q "## Overview" README.md || \
+             ! grep -q "## Benchmark" README.md || \
+             ! grep -q "## Specification" README.md || \
+             ! grep -q "## Getting started" README.md; then
+            echo "README.md is missing one or more required sections." && exit 1;
+          fi
+
+      - name: Check if https://lvgl.io/boards has a link to this repo
+        run: |
+          REPO_URL=$(git config --get remote.origin.url | sed 's/\.git$//')
+          curl -s https://lvgl.io/boards | grep -q "$REPO_URL"
+          if [ $? -ne 0 ]; then
+            echo "https://lvgl.io/boards does not have a link to this repository." && exit 1;
+          fi
+
+      - name: Check if https://github.com/lvgl/lvgl_project_creator/blob/master/manifests has a link to this repo
+        run: |
+          REPO_URL=$(git config --get remote.origin.url | sed 's/.*\/\/[^\/]*\/\([^\/]*\/[^\/]*\).*/\1/')
+          curl -s https://raw.githubusercontent.com/lvgl/lvgl_project_creator/master/manifests | grep -q "$REPO_URL"
+          if [ $? -ne 0 ]; then
+            echo "Manifest does not contain a link to this repository." && exit 1;
+          fi
+
+      - name: Check for single lv_conf files
+        run: |
+          echo "Checking for single lv_conf.h and lv_conf.defaults files..."
+          
+          # Find files
+          LV_CONF_H_COUNT=$(find . -type f -name "lv_conf.h" | wc -l)
+          LV_CONF_DEFAULT_COUNT=$(find . -type f -name "lv_conf.defaults" | wc -l)
+          
+          echo "Found $LV_CONF_H_COUNT lv_conf.h file(s)."
+          echo "Found $LV_CONF_DEFAULT_COUNT lv_conf.defaults file(s)."
+          
+          # Validate counts
+          if [ "$LV_CONF_H_COUNT" -ne 1 ]; then
+            echo "❌ There should be exactly one lv_conf.h file, but found $LV_CONF_H_COUNT."
+            exit 1
+          fi
+          
+          if [ "$LV_CONF_DEFAULT_COUNT" -ne 1 ]; then
+            echo "❌ There should be exactly one lv_conf.defaults file, but found $LV_CONF_DEFAULT_COUNT."
+            exit 1
+          fi
+          
+          echo "✅ File checks passed."
+
+      - name: Check for lv_conf.defaults in root
+        run: |
+          if [ ! -f lv_conf.defaults ]; then
+            echo "lv_conf.defaults file is missing in the root directory." && exit 1;
+          fi
+      
+      - name: Check if the repo URL is in the branch updater
+        run: |
+          FILE_URL="https://raw.githubusercontent.com/lvgl/lvgl/master/scripts/release_branch_updater_port_urls.txt"
+          REPO_URL_TO_CHECK="https://github.com/${{ github.repository }}"
+          
+          echo "Checking if $REPO_URL_TO_CHECK exists in $FILE_URL..."
+          
+          # Download the file and check for the URL
+          if curl -s $FILE_URL | grep -Fxq "$REPO_URL_TO_CHECK"; then
+            echo "✅ The repository URL is listed"
+          else
+            echo "❌ The repository URL is NOT"
+            exit 1
+          fi
+
+      - name: Check for YouTube link in README
+        run: |
+          if ! grep -qE 'https://(www\.)?youtube\.com|youtu\.be' README.md; then
+            echo "README.md is missing a link to a YouTube video." && exit 1;
+          fi
