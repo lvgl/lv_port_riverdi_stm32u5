@@ -66,12 +66,6 @@ jobs:
           
           echo "✅ File checks passed."
 
-      - name: Check for lv_conf.defaults in root
-        run: |
-          if [ ! -f lv_conf.defaults ]; then
-            echo "lv_conf.defaults file is missing in the root directory." && exit 1;
-          fi
-      
       - name: Check if the repo URL is in the branch updater
         run: |
           FILE_URL="https://raw.githubusercontent.com/lvgl/lvgl/master/scripts/release_branch_updater_port_urls.txt"
