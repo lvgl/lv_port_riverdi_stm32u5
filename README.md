@@ -1,6 +1,6 @@
-**:rocket: This repository is available in the [LVGL Project Creator](https://lvgl.io/tools/project-creator), making it easy to create and customize a new project in just a few clicks.**
-
 # LVGL ported to the 5-inch Riverdi STM32 Embedded Displays (STM32U599NJH6Q or STM32U5A9NJH6Q)
+
+**:rocket: This repository is available in the [LVGL Project Creator](https://lvgl.io/tools/project-creator), making it easy to create and customize a new project in just a few clicks.**
 
 ## Overview
 
