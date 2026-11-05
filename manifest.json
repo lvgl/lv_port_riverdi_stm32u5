@@ -38,7 +38,7 @@
     "branches": [
         "release/v9.2"
     ],
-    "getStartedInstructions": "1. Connect a 6-48V power supply to the POWER header on the board using the supplied cable. \n2. Connect a debug probe to the SWD header using the supplied cable.\n 3. Install [STM32 CubeIDE](https://www.st.com/en/development-tools/stm32cubeide.html)\n4. Open STM32CubeIDE and import project:` File => Open Projects from File System... => Directory => Select the \"STM32CubeIde\" folder => Finish`\n5. Click the Run button to flash the project",
+    "getStartedInstructions": "1. Connect a 6-48V power supply to the POWER header on the board using the supplied cable. \n2. Connect a debug probe to the SWD header using the supplied cable.\n 3. Install [STM32 CubeIDE](https://www.st.com/en/development-tools/stm32cubeide.html)\n4. Open STM32CubeIDE and import project:` File => Open Projects from File System... => Directory => Select the root folder of this repository => Finish`\n5. Click the Run button to flash the project",
     "settings": [
         {
             "type": "dropdown",

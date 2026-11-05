@@ -62,7 +62,7 @@ To be able to flash and debug your program you will need to purchase an SWD debu
 
 ### Run the project
 - Clone the project: `git clone --recursive https://github.com/lvgl/lv_port_riverdi_stm32u5`
-- Open *STM32CubeIDE* and import project:` File => Open Projects from File System... => Directory => Select the "STM32CubeIde" folder => Finish`
+- Open *STM32CubeIDE* and import project:` File => Open Projects from File System... => Directory => Select the root folder of this repository => Finish`
 - Build the project (for the best performance use *Release* configuration with *-O2* flag): `Project => Build Project`
 - Click the ![image](https://github.com/lvgl/lv_port_riverdi_70-stm32h7/assets/7599318/ad1ba904-f917-4e0c-97b3-1c1ca12cf185) Run button to flash the project
     

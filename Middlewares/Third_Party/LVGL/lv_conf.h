@@ -733,7 +733,7 @@
 #define LV_OBJ_STYLE_CACHE 1
 
 /** Widget names (lv_obj_set_name) */
-#define LV_USE_OBJ_NAME 0
+#define LV_USE_OBJ_NAME 1
 
 /** Widget id (lv_obj_set_id) */
 #define LV_USE_OBJ_ID 0
@@ -777,7 +777,7 @@
 #define LV_USE_OBSERVER 1
 
 /** Look up strings by ID for the selected language with lv_translation_get(). */
-#define LV_USE_TRANSLATION 0
+#define LV_USE_TRANSLATION 1
 
 /** Color filter style */
 #define LV_USE_COLOR_FILTER 0
@@ -1474,7 +1474,7 @@
  *
  *  Enable: LV_USE_CANVAS
  */
-#define LV_USE_QRCODE 0
+#define LV_USE_QRCODE 1
 
 /** Legacy rlottie binding, kept for compatibility. Use LV_USE_LOTTIE instead. */
 #define LV_USE_RLOTTIE 0
